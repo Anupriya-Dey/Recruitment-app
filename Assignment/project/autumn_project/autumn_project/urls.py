@@ -18,6 +18,7 @@ from rest_framework.routers import DefaultRouter
 from recruitments import views
 from django.contrib import admin
 
+
 router = DefaultRouter()
 
 router.register('recruitment_season', views.RecruitmentSeasonViewSet, basename='season')
@@ -37,8 +38,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('auth/login/', views.LoginView.as_view()),
-    path('auth/logout/', views.LogoutView.as_view())
+    # path('auth/login/', views.LoginView.as_view()),
+    # path('auth/logout/', views.LogoutView.as_view())
 ]
 
 
