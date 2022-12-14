@@ -1,61 +1,58 @@
 from rest_framework import serializers
-from .models import Applicant, IMG_member, Interview_panel, Candidate_marks, Question, Recruitment_season, Candidate_round, Rounds, Section
+from .models import Applicant, Project, Users, Interview_panel, Candidate_marks, Question, Recruitment_season, Candidate_round, Rounds, Section
 
 class RecruitmentSeasonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recruitment_season
         fields = "__all__"
-class RecruitmentSeasonNameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Recruitment_season
-        fields = ['year','role']        
+     
 
 class RoundsSerializer(serializers.ModelSerializer):
-    season_id = RecruitmentSeasonNameSerializer()
+    season_id = RecruitmentSeasonSerializer(read_only=True)
     class Meta:
         model = Rounds
-        fields = ['id', 'season_id', 'type']
+        fields = "__all__"
 
 class SectionSerializer(serializers.ModelSerializer):
-    round_id = RoundsSerializer()
+    round_id = RoundsSerializer(read_only=True)
     class Meta:
         model = Section
         fields = "__all__"
         
 class SectionNameSerializer(serializers.ModelSerializer):
-    round_id = RoundsSerializer()
+    round_id = RoundsSerializer(read_only=True)
     class Meta:
         model = Section
-        fields = ['id', 'round_id', 'name', 'weightage']
+        fields = "__all__"
 
 class ApplicantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Applicant
         fields = "__all__"
 
-class IMGMemberSerializer(serializers.ModelSerializer):
+class UsersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = IMG_member
+        model = Users
         fields = "__all__"  
 
-class IMGMemberNameSerializer(serializers.ModelSerializer):
+class UsersNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = IMG_member
-        fields = ['enrollment_no', 'name', 'year']      
+        model = Users
+        fields = "__all__"    
 
 class QuestionSerializer(serializers.ModelSerializer):
-    assignee = IMGMemberNameSerializer()
-    section_id = SectionNameSerializer()
+    assignee = UsersNameSerializer(read_only=True)
+    section_id = SectionNameSerializer(read_only=True)
     class Meta:
         model = Question
-        fields = ['id', 'section_id', 'text', 'mark', 'assignee']
+        fields = "__all__" 
 
 class InterviewPanelSerializer(serializers.ModelSerializer):
-    season_id = RecruitmentSeasonNameSerializer()
-    panelist = IMGMemberNameSerializer(many=True)
+    season_id = RecruitmentSeasonSerializer()
+    panelist = UsersNameSerializer(many=True)
     class Meta:        
         model = Interview_panel
-        fields = ['id', 'panel_name', 'panelist', 'room_no', 'status', 'season_id']
+        fields = "__all__" 
 
 class CandidateMarksSerializer(serializers.ModelSerializer):
     # round_id = RoundsSerializer()
@@ -63,16 +60,19 @@ class CandidateMarksSerializer(serializers.ModelSerializer):
     question_id = QuestionSerializer()
     class Meta:
         model = Candidate_marks
-        fields = ['id', 'applicant_id', 'checked', 'question_id', 'marks', 'remarks']
-        
+        fields = "__all__" 
+
 class CandidateRoundSerializer(serializers.ModelSerializer):
     round_id = RoundsSerializer()
     applicant_id = ApplicantSerializer()
     class Meta:
         model = Candidate_round
-        fields = ['id', 'round_id', 'applicant_id', 'remark', 'status', 'interview_panel', 'time_slot']
+        fields = "__all__" 
         
-
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Project
+        fields='__all__'
         
         
         
