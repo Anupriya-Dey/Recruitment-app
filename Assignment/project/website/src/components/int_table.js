@@ -61,7 +61,6 @@ function InterviewTableBody(props){
       };
 
 
-    //update rows detail
     let [status,setStatus]=React.useState(null)
     let [timing,setTiming]=React.useState('')
     let [marks,setMarks]=React.useState('');
@@ -92,7 +91,7 @@ function InterviewTableBody(props){
         handleClose()
         window.location.href=window.location.href        
     }
-    //move to menu
+    
     const [selected,setSelected]=React.useState([])
     const isSelected = (id) => selected.indexOf(id) !== -1;
     const handleClick = (event, id) => {

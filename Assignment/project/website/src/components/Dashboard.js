@@ -96,7 +96,7 @@ function RoundTab(props){
         <Divider />
         
         {value<1 &&<TestTable value={value} />}
-        {/* {1<value<3 &&<InterviewTable value={value} />} */}
+        {1<value<3 &&<InterviewTable value={value} />}
         {value>3 && <Selected season_id={season_id}/>}
         </>
     )

@@ -268,7 +268,7 @@ function EnhancedTableBody(props){
                 </Menu>     
             <TableRow>
            
-                <TablePagination rowsPerPageOptions={[2,3,5]}
+                <TablePagination rowsPerPageOptions={[3,5]}
                 count={orderedRows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

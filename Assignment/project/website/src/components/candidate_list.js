@@ -73,7 +73,7 @@ export default function CandidateList(){
 
 
 
-function CandidateTable(props) //display tabs of the table
+function CandidateTable(props) 
 {
     const {year}=props
     const[value,setValue]=React.useState(1);
@@ -100,9 +100,8 @@ function CandidateTable(props) //display tabs of the table
 
         <Divider />
 
-        {/* <Upload /> */}
         <TableDisplay value={value} id={year}/>
-        {/* to display the table */}
+        
 
         </>
     )
@@ -112,7 +111,7 @@ function CandidateTable(props) //display tabs of the table
 const headCells=[{value:"Sl No",id:"slno"},{value: "Name",id:"name"},{value:"Enrolment No",id:"enrollment_no"},{value:"Mobile No.",id:"mob"},{value:"Email ID",id:"email"}]
 
 
-function TableDisplay(props)//to display headings and sort the rows as per the heading fields
+function TableDisplay(props)
 {
     const {value,id} = props;
    
@@ -169,8 +168,8 @@ function TableDisplay(props)//to display headings and sort the rows as per the h
                 {headCells.map((header)=>(
                     <TableCell>
                        <TableSortLabel 
-                       active={orderBy === header.id} //shows which column head is sorted
-                       direction={orderBy===header.id?order:'asc'} //if sorting is done as per the header column, order it in the given sense, else in ascending order
+                       active={orderBy === header.id} 
+                       direction={orderBy===header.id?order:'asc'} 
                        onClick={()=>{createSortHandler(header.id)}}
                        >
                            <Typography sx={{fontWeight:'bold', fontSize:20}}>
