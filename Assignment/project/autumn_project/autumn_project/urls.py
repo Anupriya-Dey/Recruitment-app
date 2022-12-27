@@ -37,6 +37,7 @@ router.register('candidate_marks', views.CandidateMarksViewSet ,basename='candid
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('api/', include(router.urls))
     # path('auth/login/', views.LoginView.as_view()),
@@ -44,4 +45,3 @@ urlpatterns = [
 ]
 
 #todo: create routers
-

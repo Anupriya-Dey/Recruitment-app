@@ -23,6 +23,7 @@ router.register('project', views.ProjectViewSet ,basename='project')
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns=[ path('',include(router.urls)),
+path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 path('api/', include(router.urls))]
 
 
