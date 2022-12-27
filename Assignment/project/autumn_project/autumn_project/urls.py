@@ -30,7 +30,7 @@ router.register('applicant', views.ApplicantViewSet ,basename='applicant')
 router.register('interview_panel', views.InterviewPanelViewSet ,basename='interview_panel')
 router.register('candidate_round', views.CandidateRoundViewSet ,basename='candidate_round')
 router.register('candidate_marks', views.CandidateMarksViewSet ,basename='candidate_marks')
-
+router.register('login',views.UsersLoginViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

@@ -15,6 +15,8 @@ import requests
 from django.contrib.auth import login,logout,authenticate
 import json
 import pandas
+from . import oauth
+
 class RecruitmentSeasonViewSet(viewsets.ModelViewSet):
     queryset=Recruitment_season.objects.all()
     serializer_class=RecruitmentSeasonSerializer
@@ -121,6 +123,49 @@ class UsersLoginViewSet(viewsets.ModelViewSet):
     queryset=Users.objects.all()
     serializer_class=UsersSerializer
     
+    @action(detail=False, methods=['POST'])
+    def log_in(self, req):
+        try:
+            auth_code=req.data['code']
+        except:
+            return HttpResponseBadRequest()
+
+        params = {
+            'client_id': oauth.CLIENT_ID,
+            'client_secret': oauth.CLIENT_SECRET,
+            'grant_type': 'authorization_code',
+            'redirect_uri': oauth.REDIRECT_URI,
+            'code': auth_code,
+        }
+
+        res = requests.post("https://channeli.in/open_auth/token/", data=params,)
+        
+        if(res.status_code==200):
+            access_token=res.json()["access_token"]
+            refresh_token=res.json()["refresh_token"]
+        else:
+            return HttpResponseBadRequest()
+
+        
+        header={ "Authorization": "Bearer " + access_token,}
+
+        res=requests.get("https://channeli.in/open_auth/get_user_data/",headers=header)
+
+        user_data=res.json()
+        isMaintainer=False
+
+        for role in user_data['person']['roles']:
+            if role['role'] == 'Maintainer':
+                isMaintainer = True
+            
+        if not isMaintainer:
+            return JsonResponse({'status': 'you are not a maintainer'})
+        
+        user,created=Users.objects.get_or_create(enrollment=user_data['username'], defaults={"name":user_data['person']['fullName'], "branch":user_data['student']['branch name'],"current_year":user_data['student']['currentYear']})
+        login(req,user)
+
+        res=Response(user_data,status=status.HTTP_202_ACCEPTED)
+        return res
 
 
 

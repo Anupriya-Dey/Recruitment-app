@@ -18,6 +18,7 @@ router.register('candidate_round', views.CandidateRoundViewSet ,basename='candid
 router.register('candidate_marks', views.CandidateMarksViewSet ,basename='candidate_marks')
 
 router.register('project', views.ProjectViewSet ,basename='project')
+router.register('login',views.UsersLoginViewSet)
 
 
 # Wire up our API using automatic URL routing.
