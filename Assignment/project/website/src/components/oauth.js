@@ -1,0 +1,5 @@
+
+
+export const CLIENT_ID='i1t1OePQZR6mNKrIJ3SnpKUefHFsmTGzHJ5IfJQ9'
+export const CLIENT_SECRET='BoQNuzXs0KoAhnTbXsPxP8oWyQOoLG3yRQoejQh72l5hfADaS2TS559MHUAsfpnC9T6Icze8nkuwBuLMhB5XpAxytHsj1HVVj9R2SXp6PuXGyiy8aQhIkvzrwGg5GkDc'
+export const REDIRECT_URI='http://localhost:8000/login/log_in/'

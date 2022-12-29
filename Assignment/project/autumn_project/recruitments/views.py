@@ -157,6 +157,7 @@ class UsersLoginViewSet(viewsets.ModelViewSet):
         for role in user_data['person']['roles']:
             if role['role'] == 'Maintainer':
                 isMaintainer = True
+                
             
         if not isMaintainer:
             return JsonResponse({'status': 'you are not a maintainer'})

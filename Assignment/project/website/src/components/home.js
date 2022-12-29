@@ -11,12 +11,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import LoginIcon from '@mui/icons-material/Login'
 import axios from 'axios';
+import {CLIENT_ID,CLIENT_SECRET,REDIRECT_URI} from './oauth.js'
 
-// require('react-dom');
-// window.React2 = require('react');
-// console.log(window.React1 === window.React2);
 
-const theme=createTheme({ 
+
+const theme=createTheme({
     palette:{
         primary: {
             main:"rgb(33, 72, 99)",
@@ -24,74 +23,40 @@ const theme=createTheme({
     },
 })
 
-const Rec_Seasons=["2022", "2021"]
+
+
 export default function Home(){
+    
 
-    const [open, setOpen] = React.useState(-2);
-    const handleClick = (season_year) => {
-        if(open!=season_year)
-        setOpen(season_year);
-        else
-        setOpen(-2);
-      };
+    const url="https://channeli.in/oauth/authorise/?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI;
+
+    const login=()=>{
+        window.location.href=url;
+    }
+
     return (
-        <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+    <Box>
+    <AppBar sx={{ height:'6.5vh' }}>
+        <Toolbar>
+          <Typography variant="h4" sx={{ flexGrow: 1, fontFamily:'cursive',fontSize:30}} textAlign="center">
+            Information Management Group
+          </Typography>
+        </Toolbar> 
+    </AppBar> 
 
-        <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, height:'6.5%' }}>
-                <Toolbar>
-                    
-                <Typography variant="h6" sx={{flexGrow:1,fontFamily:'cursive',fontSize:30 }} textAlign="center">
-                
-                    IMG Recruitment
-                    
-                </Typography>
-                </Toolbar>
-            </AppBar>
-
-            <Drawer variant="permanent" sx={{width: '20%'} }>
-                <Toolbar />
-                <Toolbar>
-                    <Typography>
-                        Rounds
-                    </Typography>
-                    </Toolbar>
-                <Divider />
-        
-        <List>
-            {Rec_Seasons.map((season,index) =>
-            (
-            <>
-                <ListItemButton onClick={()=>handleClick(index)}>
-                <ListItemText primary={"Recruitment Season "+(season)} />
-                {open==index ? <ExpandLess /> : <ExpandMore />}
-                
-                </ListItemButton>
-                <Collapse in={open==index} timeout="auto">
-                    <List>
-                        <ListItemButton>
-                            <ListItemText secondary="Developer" onClick={() => { window.location.href = "http://localhost:3000/dashboard/" + season + "/"; } }/>
-                        </ListItemButton>
-                        
-                        <ListItemButton>
-                            <ListItemText secondary="Designer" onClick={() => { window.location.href = "http://localhost:3000/dashboard/" + season + "/"; }}/>
-                        </ListItemButton>
-                    </List>
-                </Collapse>
-                <Divider />
-            </>
-            ))}
-        </List>
-        
-        <Button 
-        variant="contained" 
-        startIcon={<AddIcon />} 
-        sx={{width:'90%', fontSize:15, position:'absolute',bottom:10, right:10}} 
-        disablePadding>
-            Create New Season
-        </Button>
-    </Drawer>
-
-
+    
+<Box component="div" sx={{p:'1vw', mt:'3vh', pb:'0'}}>
+    <Button variant="contained" sx={{position:"absolute" ,top:"50%",right:"50%",width:'20vw', height:'5vh'}} onClick={login} >
+        <LoginIcon sx={{mr:3}}/>
+        <Typography>
+            Login with ChannelI
+        </Typography>
+    </Button>
+ 
+    </Box>
+ 
+    </Box>
     </ThemeProvider>
     )
 }
